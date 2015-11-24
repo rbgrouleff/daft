@@ -1,3 +1,5 @@
+# Copied from http://blog.phil-opp.com/rust-os/multiboot-kernel.html
+
 arch ?= x86_64
 kernel := build/kernel-$(arch).bin
 iso := build/daft-$(arch).iso
