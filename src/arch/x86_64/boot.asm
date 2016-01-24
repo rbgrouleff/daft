@@ -18,3 +18,11 @@ error:
     mov byte  [0xb800a], al
     hlt
 
+check_multiboot:
+    cmp eax, 0x36d76289
+    jne .no_multiboot
+    ret
+.no_multiboot:
+    mov al, "0"
+    jmp error
+
