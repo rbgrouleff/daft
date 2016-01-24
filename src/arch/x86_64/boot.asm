@@ -62,3 +62,7 @@ check_cpuid:
     mov al, "1"
     jmp error
 
+section .bss
+stack_bottom:
+    resb 64
+stack_top:
