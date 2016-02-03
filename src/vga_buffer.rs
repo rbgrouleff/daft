@@ -1,5 +1,8 @@
 // Copied from http://blog.phil-opp.com/rust-os
 
+const BUFFER_HEIGHT: usize = 25;
+const BUFFER_WIDTH: usize = 80;
+
 #[repr(u8)]
 pub enum Color {
     Black      = 0,
