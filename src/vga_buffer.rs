@@ -5,6 +5,7 @@ use core::ptr::Unique;
 const BUFFER_HEIGHT: usize = 25;
 const BUFFER_WIDTH: usize = 80;
 
+#[allow(dead_code)]
 #[repr(u8)]
 pub enum Color {
     Black      = 0,
@@ -23,6 +24,16 @@ pub enum Color {
     Pink       = 13,
     Yellow     = 14,
     White      = 15,
+}
+
+pub fn print_something() {
+    let mut writer = Writer {
+        column_position: 0,
+        color_code: ColorCode::new(Color::LightGreen, Color::Black),
+        buffer: unsafe{ Unique::new(0xb8000 as *mut _) },
+    };
+
+    writer.write_byte(b'H');
 }
 
 pub struct Writer {
