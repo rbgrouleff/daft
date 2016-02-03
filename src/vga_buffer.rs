@@ -31,6 +31,34 @@ pub struct Writer {
     buffer: Unique<Buffer>,
 }
 
+impl Writer {
+    pub fn write_byte(&mut self, byte: u8) {
+        match byte {
+            b'\n' => self.new_line(),
+            byte => {
+                if self.column_position >= BUFFER_WIDTH {
+                    self.new_line();
+                }
+
+                let row = BUFFER_HEIGHT - 1;
+                let col = self.column_position;
+
+                self.buffer().chars[row][col] = ScreenChar {
+                    ascii_character: byte,
+                    color_code: self.color_code,
+                };
+                self.column_position += 1;
+            }
+        }
+    }
+
+    fn buffer(&mut self) -> &mut Buffer {
+        unsafe{ self.buffer.get_mut() }
+    }
+
+    fn new_line(&mut self) {/* TODO */}
+}
+
 struct ColorCode(u8);
 
 impl ColorCode {
