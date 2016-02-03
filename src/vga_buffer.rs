@@ -20,6 +20,12 @@ pub enum Color {
     White      = 15,
 }
 
+pub struct Writer {
+    column_position: usize,
+    color_code: ColorCode,
+    buffer: Unique<Buffer>,
+}
+
 struct ColorCode(u8);
 
 impl ColorCode {
@@ -28,3 +34,12 @@ impl ColorCode {
     }
 }
 
+#[repr(C)]
+struct ScreenChar {
+    ascii_character: u8,
+    color_code: ColorCode,
+}
+
+struct Buffer {
+    chars: [[ScreenChar; BUFFER_WIDTH]; BUFFER_HEIGHT],
+}
