@@ -59,6 +59,7 @@ impl Writer {
     fn new_line(&mut self) {/* TODO */}
 }
 
+#[derive(Clone, Copy)]
 struct ColorCode(u8);
 
 impl ColorCode {
