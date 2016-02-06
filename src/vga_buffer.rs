@@ -33,7 +33,7 @@ pub fn print_something() {
         buffer: unsafe{ Unique::new(0xb8000 as *mut _) },
     };
 
-    writer.write_byte(b'H');
+    writer.write_str("Hælløj");
 }
 
 pub struct Writer {
@@ -60,6 +60,12 @@ impl Writer {
                 };
                 self.column_position += 1;
             }
+        }
+    }
+
+    pub fn write_str(&mut self, s: &str) {
+        for byte in s.bytes() {
+            self.write_byte(byte)
         }
     }
 
