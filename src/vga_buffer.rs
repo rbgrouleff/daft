@@ -1,6 +1,7 @@
 // Copied from http://blog.phil-opp.com/rust-os
 
 use core::ptr::Unique;
+use core::fmt;
 
 const BUFFER_HEIGHT: usize = 25;
 const BUFFER_WIDTH: usize = 80;
@@ -27,6 +28,7 @@ pub enum Color {
 }
 
 pub fn print_something() {
+    use core::fmt::Write;
     let mut writer = Writer {
         column_position: 0,
         color_code: ColorCode::new(Color::LightGreen, Color::Black),
@@ -34,6 +36,7 @@ pub fn print_something() {
     };
 
     writer.write_str("Hælløj");
+    write!(writer, "The numbers are {} and {}", 42, 1.0/3.0);
 }
 
 pub struct Writer {
@@ -63,17 +66,20 @@ impl Writer {
         }
     }
 
-    pub fn write_str(&mut self, s: &str) {
-        for byte in s.bytes() {
-            self.write_byte(byte)
-        }
-    }
-
     fn buffer(&mut self) -> &mut Buffer {
         unsafe{ self.buffer.get_mut() }
     }
 
     fn new_line(&mut self) {/* TODO */}
+}
+
+impl ::core::fmt::Write for Writer {
+    fn write_str(&mut self, s: &str) -> ::core::fmt::Result {
+        for byte in s.bytes() {
+            self.write_byte(byte)
+        }
+        Ok(())
+    }
 }
 
 #[derive(Clone, Copy)]
