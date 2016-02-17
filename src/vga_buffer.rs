@@ -19,7 +19,7 @@ macro_rules! println {
 
 macro_rules! print {
     ($($arg:tt)*) => ({
-        use fmt::core::Write;
+        use core::fmt::Write;
         $crate::vga_buffer::WRITER.lock().write_fmt(format_args!($($arg)*)).unwrap();
     });
 }
