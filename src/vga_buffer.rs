@@ -23,6 +23,13 @@ macro_rules! print {
         $crate::vga_buffer::WRITER.lock().write_fmt(format_args!($($args)*)).unwrap();
     });
 }
+
+pub fn clear_screen() {
+    for _ in 0..BUFFER_HEIGHT {
+        println!("");
+    }
+}
+
 #[allow(dead_code)]
 #[repr(u8)]
 pub enum Color {
