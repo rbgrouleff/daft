@@ -51,18 +51,6 @@ pub enum Color {
     White      = 15,
 }
 
-pub fn print_something() {
-    use core::fmt::Write;
-    let mut writer = Writer {
-        column_position: 0,
-        color_code: ColorCode::new(Color::LightGreen, Color::Black),
-        buffer: unsafe{ Unique::new(0xb8000 as *mut _) },
-    };
-
-    writer.write_str("Hælløj");
-    write!(writer, "The numbers are {} and {}", 42, 1.0/3.0);
-}
-
 pub struct Writer {
     column_position: usize,
     color_code: ColorCode,
