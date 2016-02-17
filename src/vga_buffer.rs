@@ -1,9 +1,16 @@
 // Copied from http://blog.phil-opp.com/rust-os
 
 use core::ptr::Unique;
+use spin::Mutex;
 
 const BUFFER_HEIGHT: usize = 25;
 const BUFFER_WIDTH: usize = 80;
+
+pub static WRITER: Mutex<Writer> = Mutex::new(Writer {
+    column_position: 0,
+    color_code: ColorCode::new(Color::LightGreen, Color::Black),
+    buffer: unsafe { Unique::new(0xb8000 as *mut _) },
+});
 
 #[allow(dead_code)]
 #[repr(u8)]
