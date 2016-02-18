@@ -44,6 +44,17 @@ pub extern fn rust_main(multiboot_information_address: usize) {
     let multiboot_end   = multiboot_start + (boot_info.total_size as usize);
     println!("multiboot_start: 0x{:x}, multiboot_end: 0x{:x}", multiboot_start, multiboot_end);
 
+    let mut frame_allocator = memory::AreaFrameAllocator::new(
+        kernel_start as usize, kernel_end as usize, multiboot_start,
+        multiboot_end, memory_map_tag.memory_areas());
+    for i in 0.. {
+        use memory::FrameAllocator;
+        if let None = frame_allocator.allocate_frame() {
+            println!("allocated {} frames", i);
+            break;
+        }
+    }
+
     loop{}
 }
 
