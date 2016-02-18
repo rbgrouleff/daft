@@ -10,6 +10,7 @@ extern crate multiboot2;
 
 #[macro_use]
 mod vga_buffer;
+mod memory;
 
 #[no_mangle]
 pub extern fn rust_main(multiboot_information_address: usize) {
